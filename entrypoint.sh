@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-bundle exec ruby main.rb
+bundle exec ruby /app/main.rb
