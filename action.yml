@@ -5,4 +5,4 @@ runs:
   image: Dockerfile
 branding:
   color: orange
-  icon: rss
+  icon: download-cloud
