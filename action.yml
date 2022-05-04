@@ -1,0 +1,8 @@
+name: gialog-sync
+description: Update JSON files for gialog.
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  color: orange
+  icon: rss
