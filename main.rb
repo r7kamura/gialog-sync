@@ -190,7 +190,7 @@ module Giab
         @text,
         context: context,
         mode: 'gfm',
-      )
+      ).force_encoding('UTF-8')
     end
 
     private
