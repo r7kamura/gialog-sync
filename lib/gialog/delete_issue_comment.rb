@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 module Gialog
   class DeleteIssueComment
     class << self
@@ -27,21 +29,23 @@ module Gialog
     end
 
     def call
-      data = IssueCommentsDatabase.read
-      data['issue_comments'][issue_number_string].delete(issue_comment_id_string)
-      IssueCommentsDatabase.write(data)
+      pathname.delete
     end
 
     private
 
     # @return [String]
-    def issue_comment_id_string
-      @issue_comment['id'].to_s
+    def path
+      format(
+        'data/issues/%<issue_number>s/issue_comments/%<issue_comment_id>s.md',
+        issue_comment_id: @issue_comment['id'],
+        issue_number: @issue['number']
+      )
     end
 
-    # @return [String]
-    def issue_number_string
-      @issue['number'].to_s
+    # @return [Pathname]
+    def pathname
+      ::Pathname.new(path)
     end
   end
 end

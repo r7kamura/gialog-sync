@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'pathname'
+require 'yaml'
+
 module Gialog
   class UpsertIssue
     class << self
@@ -15,12 +18,33 @@ module Gialog
     end
 
     def call
-      data = IssuesDatabase.read
-      data['issues'] ||= {}
-      data['issues'][@issue['number'].to_s] = @issue.merge(
-        'bodyHTML' => ConvertMarkdownToHtml.call(@issue['body'])
+      file_content = generate_file_content
+      pathname.parent.mkpath
+      pathname.write(file_content)
+    end
+
+    private
+
+    # @return [String]
+    def generate_file_content
+      body = @issue.delete('body')
+      [
+        @issue.to_yaml,
+        body
+      ].join("\n---\n")
+    end
+
+    # @return [String]
+    def path
+      format(
+        'data/issues/%<issue_number>s/issue.md',
+        issue_number: @issue['number']
       )
-      IssuesDatabase.write(data)
+    end
+
+    # @return [Pathname]
+    def pathname
+      ::Pathname.new(path)
     end
   end
 end

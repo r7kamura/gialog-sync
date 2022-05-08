@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pathname'
+
 module Gialog
   class DeleteIssue
     class << self
@@ -15,20 +17,22 @@ module Gialog
     end
 
     def call
-      data = IssuesDatabase.read
-      data['issues'].delete(issue_number_string)
-      IssuesDatabase.write(data)
-
-      data = IssueCommentsDatabase.read
-      data['issue_comments'].delete(issue_number_string)
-      IssueCommentsDatabase.write(data)
+      pathname.rmtree
     end
 
     private
 
     # @return [String]
-    def issue_number_string
-      @issue['number'].to_s
+    def path
+      format(
+        'data/issues/%<issue_number>s',
+        issue_number: @issue['number']
+      )
+    end
+
+    # @return [Pathname]
+    def pathname
+      ::Pathname.new(path)
     end
   end
 end

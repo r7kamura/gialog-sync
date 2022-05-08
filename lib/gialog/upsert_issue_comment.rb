@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'pathname'
+require 'yaml'
+
 module Gialog
   class UpsertIssueComment
     class << self
@@ -28,27 +31,34 @@ module Gialog
     end
 
     def call
-      data = IssueCommentsDatabase.read
-
-      data['issue_comments'] ||= {}
-      data['issue_comments'][issue_number_string] ||= {}
-      data['issue_comments'][issue_number_string][issue_comment_id_string] = @issue_comment.merge(
-        'bodyHTML' => ConvertMarkdownToHtml.call(@issue_comment['body'])
-      )
-
-      IssueCommentsDatabase.write(data)
+      file_content = generate_file_content
+      pathname.parent.mkpath
+      pathname.write(file_content)
     end
 
     private
 
     # @return [String]
-    def issue_comment_id_string
-      @issue_comment['id'].to_s
+    def generate_file_content
+      body = @issue_comment.delete('body')
+      [
+        @issue_comment.to_yaml,
+        body
+      ].join("\n---\n")
     end
 
     # @return [String]
-    def issue_number_string
-      @issue['number'].to_s
+    def path
+      format(
+        'data/issues/%<issue_number>s/issue_comments/%<issue_comment_id>s.md',
+        issue_comment_id: @issue_comment['id'],
+        issue_number: @issue['number']
+      )
+    end
+
+    # @return [Pathname]
+    def pathname
+      ::Pathname.new(path)
     end
   end
 end
