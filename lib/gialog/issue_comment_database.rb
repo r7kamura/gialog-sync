@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gialog
   class IssueCommentsDatabase < Database
     # @return [String]

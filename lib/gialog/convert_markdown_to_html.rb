@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'octokit'
 
 module Gialog
@@ -21,7 +23,7 @@ module Gialog
       client.markdown(
         @text,
         context: context,
-        mode: 'gfm',
+        mode: 'gfm'
       ).force_encoding('UTF-8')
     end
 

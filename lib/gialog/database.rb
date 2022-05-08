@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'pathname'
 
 module Gialog
   class Database
-    DEFAULT_VALUE = {}
+    DEFAULT_VALUE = {}.freeze
 
     class << self
       # @return [Hash]
