@@ -10,6 +10,6 @@ module Gialog
   autoload :IssueCommentDatabase, 'gialog/issue_comment_database'
   autoload :IssueDatabase, 'gialog/issue_database'
   autoload :Sync, 'gialog/sync'
-  autoload :UpdateIssue, 'gialog/update_issue'
-  autoload :UpdateIssueComment, 'gialog/update_issue_comment'
+  autoload :UpsertIssue, 'gialog/upsert_issue'
+  autoload :UpsertIssueComment, 'gialog/upsert_issue_comment'
 end

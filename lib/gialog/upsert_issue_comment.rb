@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Gialog
-  class UpdateIssueComment
+  class UpsertIssueComment
     class << self
       # @param [Hash] issue
       # @param [Hash] issue_comment

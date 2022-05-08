@@ -15,7 +15,7 @@ module Gialog
         when 'deleted'
           DeleteIssue.call(payload['issue'])
         else
-          UpdateIssue.call(payload['issue'])
+          UpsertIssue.call(payload['issue'])
         end
       when 'issue_comment'
         case github_action_name
@@ -25,7 +25,7 @@ module Gialog
             issue_comment: payload['comment']
           )
         else
-          UpdateIssueComment.call(
+          UpsertIssueComment.call(
             issue: payload['issue'],
             issue_comment: payload['comment']
           )
