@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.0.0 - 2022-05-08
+
 ### Changed
 
 - BREAKING CHANGE: Change data format from JSON to Markdown.
