@@ -49,7 +49,7 @@ module Gialog
 
     # @return [Hash]
     def payload
-      @payload ||= GetGitHubPayload.call
+      @payload ||= GetGithubPayload.call
     end
   end
 end

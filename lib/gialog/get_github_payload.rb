@@ -4,7 +4,7 @@ require 'json'
 require 'pathname'
 
 module Gialog
-  class GetGitHubPayload
+  class GetGithubPayload
     class << self
       # @return [Hash]
       def call
