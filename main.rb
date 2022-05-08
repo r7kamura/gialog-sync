@@ -1,3 +1,3 @@
 require 'gialog'
 
-Giab::Sync.call
+Gialog::Sync.call
